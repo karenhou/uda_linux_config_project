@@ -1,0 +1,58 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class='container flash'>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+<main class="container">
+    <div class="row">
+        <div class="col-6 col-md-4">
+            <div class="row verticalLine">
+                <div class="col-md-12">
+                    <h3>Categories</h3>
+                </div>
+            </div>
+            {% for category in categories %}
+            <a href="{{url_for('showItem', category_name = category.name)}}">
+                <div class="row verticalLine">
+                    <div class="col-md-12">
+                        <h4>{{category.name}}</h4>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col col-md-8">
+            <div class="row">
+                <div class="col-md-12 add-link-margin">
+                    <a href='{{url_for('newCategory')}}'>Add Category</a>
+                </div>
+                <div class="col-md-12">
+                    <h3>Latest Edit Items</h3>
+                </div>
+            </div>
+            {% for i in latest_add %}
+                {% if i.time_updated != None %}
+                <div class="row">
+                    <div class="col-md-12 latest-add-box">
+                        <span class="latest-add-equip">{{i.name}}</span>
+                        {% for c in categories%}
+                            {% if c.id == i.category_id%}
+                            <span class="latest-add-cat">({{c.name}})</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

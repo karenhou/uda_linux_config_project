@@ -1,0 +1,26 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<main class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Delete Item</h3>
+        </div>
+        <div class="col-md-12">
+            <p> Are you sure you want to delete {{equipment_name}}?</p>
+        </div>
+        <div class="col-md-12">
+            <form action="{{url_for('deleteEquip', equipment_name = equipment_name)}}" method="post">
+                <button type="submit" class="btn btn-default" id="submit" type="submit">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Submit
+                </button>
+                <a href="{{url_for('showEquip', category_name=category.name, item_name = equipToDelete.name)}}">
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel
+                    </button>
+                </a>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

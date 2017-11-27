@@ -1,0 +1,35 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<main class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Edit Item: {{equipment_name}}</h3>
+        </div>
+        <div class="col-md-12">
+            <form action="{{ url_for('editEquip', equipment_name = equipment_name)}}" method="post">
+                <div class="form-group">
+                    <label for="name">Title:</label>
+                    <input type="text" maxlength="80" class="form-control" name="name" value="{{editedEquip.name}}">
+                    <label for="description">Description:</label>
+                    <textarea class="form-control edit-item-margin" maxlength="250" rows="3" name="description">{{editedEquip.description}}</textarea>
+                    <label for="Category">Category:</label>
+                    <select class="edit-item-margin" name="category_name">
+                        <option selected hidden>{{category.name}}</option>
+                        {% for c in category_all%}
+                        <option value="{{c.name}}">{{c.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <button type="submit" class="btn btn-default" id="submit" type="submit">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Submit</button>
+                            <a href="{{url_for('showEquip', category_name=category.name, item_name = editedEquip.name)}}">
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel</button>
+                        </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
